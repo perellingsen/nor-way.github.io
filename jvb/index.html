@@ -57,17 +57,32 @@
             
         }
 
+        label {
+            display: block;
+        }
+        div.cell {
+            float:left;
+            margin-right: 10px;
+        }
+
         label[for=return] {
+            float: right;       
             margin-right:10px;
+        }
+        .ui-button, .ui-button:focus {
+            background-color: #fff;
         }
 
         .ui-datepicker{z-index: 999999999999999999999 !important};
 
         .ui-selectmenu-open {
-            height: 120px;
+            max-height: 120px;
         }
         .ui-selectmenu-open > ul {
-            height: 120px;
+            max-height: 120px;
+        }
+        .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+            background-color: #005792;
         }
     </style>
     <script>
@@ -108,6 +123,7 @@
             $('#search').click(function(){
                 window.open(search());
             });
+            
         });
         
     </script>
@@ -115,14 +131,15 @@
 <body>
     <div id="stops">
         <h2>Bestill billetter</h2>
-        
+        <div class="cell">
         <label for="from">Fra</label>
         <select name="from" id="from">
         <option value="NSR%3AStopPlace%3A12334" selected="selected">Bygdin brygge</option>
         <option value="NSR%3AStopPlace%3A12329">Torfinnsbu turisthytte</option>
         <option value="NSR%3AStopPlace%3A59471">Eidsbugarden</option>
         </select>
-
+    </div>
+    <div class="">
         <label for="to">Til</label>
         <select name="to" id="to">
         <option value="NSR%3AStopPlace%3A12334">Bygdin brygge</option>
@@ -130,8 +147,10 @@
         <option value="NSR%3AStopPlace%3A59471" selected="selected">Eidsbugarden</option>
         </select>
     </div>
+    </div>
 
     <div id="pax">
+        <div class="cell">
         <label for="adults">Voksne</label>
         <select name="adults" id="adults">
           <option value="0">0</option>
@@ -156,7 +175,8 @@
           <option value="19">19</option>
           <option value="20">20</option>
         </select>
-    
+    </div>
+    <div class="">
         <label for="children">Barn</label>
         <select name="children" id="children">
           <option value="0" selected="selected">0</option>
@@ -169,6 +189,7 @@
           <option value="7">7</option>
           <option value="8">8</option>
         </select>
+    </div>
     </div>
 
     <div style="float:left">
