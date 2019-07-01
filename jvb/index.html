@@ -1,0 +1,164 @@
+<html lang="nb-no">
+<head>
+    <meta charset="utf-8">
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+    <script
+    src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+    integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+    crossorigin="anonymous"></script>
+    <script 
+    src="datepicker-no.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <style>
+        html {
+            font-size:100% !important;
+        }
+        body {
+            font-size:1.8 em;
+            font-family: 'PT Sans', Arial, sans-serif !important;
+        }
+        h1{
+            font-size: 2em;
+            margin-bottom: 0.3em;
+            line-height: 1;
+            color: #005792;
+            font-family: 'PT Sans', Arial, sans-serif;
+        }
+        div.outbound {
+            /*display: none;*/
+            width:200px;
+            float:left;
+        }
+        div.homebound {
+            display: none;
+            width:200px;
+            float:right;
+        }
+        #search {
+            border: none;
+            color: #f6edda;
+            border-radius: 3px;
+            background: #005792;
+            font-size: 11px;
+            border-top: 1px solid #bfdbec;
+            border-bottom: 1px solid #5b5b5b;
+            border-right: 1px solid #408dbc;
+            border-left: 1px solid #408dbc;
+            padding: 5px 10px;
+            margin: 0 0 5px;
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+            function search(){
+                var searchURL = generateSearchURL();
+                return searchURL;
+            }
+
+            function generateSearchURL() {
+                var returnData = "";
+                switch ($('#return').is(':checked')) {
+                    case true:
+                        returnData = "&returnDate="+$.datepicker.formatDate("yy-mm-dd", $('#departureDate').datepicker('getDate'))+"&returnTime=00%3A00&ret=1";
+                        break;
+                }
+                var baseURL="https://www.nor-way.no/#/?showEarlierDepartureTrips=0&showLaterDepartureTrips=0&showEarlierReturnTrips=0&showLaterReturnTrips=0&originId="+$('#from').val()+"&originName="+$('#from').find(':selected').text()+"&step=3&destinationId="+$('#to').val()+"&destinationName="+$('#to').find(':selected').text()+"&departureTime=00%3A00&departureDate="+$.datepicker.formatDate("yy-mm-dd", $('#departureDate').datepicker('getDate'))+"&qty_100="+$('#adults').val()+"&qty_101="+$('#children').val()+returnData;
+
+                var utm="&utm_source=jvb.no&utm_medium=partner&utm_campaign=mb-bitihorn";
+                return baseURL+utm;
+            }
+
+            //$('#departureDate, #returnDate').datepicker( $.datepicker.regional["no"] );
+            $("#departureDate, #returnDate").datepicker({ minDate: -0, maxDate: new Date(2019,9-1,01) });
+            $('#departureDate, #returnDate').datepicker('setDate', new Date());
+            
+            $('#departureDate').on('change', function(){
+                $("#returnDate").datepicker({ minDate: new Date($('#departureDate').datepicker('getDate')), maxDate: new Date(2019,9-1,01) });
+                $('#returnDate').datepicker('setDate', new Date($('#departureDate').datepicker('getDate')))
+            })
+
+            $('#from, #to, #adults, #children').selectmenu();
+
+            $('#return').click(function(){
+                $('.homebound').toggle()
+            })
+
+            $('#search').click(function(){
+                window.open(search());
+            });
+        });
+        
+    </script>
+</head>
+<body>
+    <div>
+        <h2>Bestill billetter</h2>
+        
+        <label for="from">Fra</label>
+        <select name="from" id="from">
+        <option value="NSR%3AStopPlace%3A12334" selected="selected">Bygdin brygge</option>
+        <option value="NSR%3AStopPlace%3A12329">Torfinnsbu turisthytte</option>
+        <option value="NSR%3AStopPlace%3A59471">Eidsbugarden</option>
+        </select>
+
+        <label for="to">Til</label>
+        <select name="to" id="to">
+        <option value="NSR%3AStopPlace%3A12334">Bygdin brygge</option>
+        <option value="NSR%3AStopPlace%312329">Torfinnsbu turisthytte</option>
+        <option value="NSR%3AStopPlace%3A59471" selected="selected">Eidsbugarden</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="adults">Voksne</label>
+        <select name="adults" id="adults">
+          <option value="0">0</option>
+          <option value="1" selected="selected">1</option>
+          <option value="3">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+        </select>
+    
+        <label for="children">Barn</label>
+        <select name="children" id="children">
+          <option value="0" selected="selected">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+        </select>
+    </div>
+
+    <div style="float:left">
+    <div class="outbound">
+    <input type="text" id="departureDate" />
+    </div>
+
+    <div class="homebound">
+        <input type="text" id="returnDate" />
+    </div>
+    </div>
+    
+    <div style="float:left">
+    <label for="return">Jeg ønsker retur</label>
+    <input type="checkbox" id="return"/>
+    </div>    
+    <div>
+    <button id="search">Søk</button>
+    
+    <p id="url"></p>
+    </div>
+</body>
+</html>
