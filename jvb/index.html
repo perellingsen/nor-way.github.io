@@ -52,9 +52,17 @@
             margin: 0 0 5px;
         }
 
+        div#stops, div#pax {
+            margin-bottom: 10px;
+            
+        }
         .ui-datepicker{z-index: 999999999999999999999 !important};
-        #adults-menu {
-            height: 200px;
+
+        .ui-selectmenu-open {
+            height: 120px;
+        }
+        .ui-selectmenu-open > ul {
+            height: 120px;
         }
     </style>
     <script>
@@ -100,6 +108,7 @@
     </script>
 </head>
 <body>
+    <div id="stops">
         <h2>Bestill billetter</h2>
         
         <label for="from">Fra</label>
@@ -117,7 +126,7 @@
         </select>
     </div>
 
-    <div>
+    <div id="pax">
         <label for="adults">Voksne</label>
         <select name="adults" id="adults">
           <option value="0">0</option>
