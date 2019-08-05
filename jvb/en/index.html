@@ -99,7 +99,7 @@
                         returnData = "&returnDate="+$.datepicker.formatDate("yy-mm-dd", $('#departureDate').datepicker('getDate'))+"&returnTime=00%3A00&ret=1";
                         break;
                 }
-                var baseURL="https://www.nor-way.no/#/?showEarlierDepartureTrips=0&showLaterDepartureTrips=0&showEarlierReturnTrips=0&showLaterReturnTrips=0&originId="+$('#from').val()+"&originName="+$('#from').find(':selected').text()+"&step=3&destinationId="+$('#to').val()+"&destinationName="+$('#to').find(':selected').text()+"&departureTime=00%3A00&departureDate="+$.datepicker.formatDate("yy-mm-dd", $('#departureDate').datepicker('getDate'))+"&qty_100="+$('#adults').val()+"&qty_101="+$('#children').val()+returnData;
+                var baseURL="https://www.nor-way.no/en#/?showEarlierDepartureTrips=0&showLaterDepartureTrips=0&showEarlierReturnTrips=0&showLaterReturnTrips=0&originId="+$('#from').val()+"&originName="+$('#from').find(':selected').text()+"&step=3&destinationId="+$('#to').val()+"&destinationName="+$('#to').find(':selected').text()+"&departureTime=00%3A00&departureDate="+$.datepicker.formatDate("yy-mm-dd", $('#departureDate').datepicker('getDate'))+"&qty_100="+$('#adults').val()+"&qty_101="+$('#children').val()+returnData;
 
                 var utm="&utm_source=jvb.no&utm_medium=partner&utm_campaign=mb-bitihorn";
                 return baseURL+utm;
@@ -130,9 +130,9 @@
 </head>
 <body>
     <div id="stops">
-        <h2>Bestill billetter</h2>
+        <h2>Order tickets</h2>
         <div class="cell">
-        <label for="from">Fra</label>
+        <label for="from">From</label>
         <select name="from" id="from">
         <option value="NSR%3AStopPlace%3A12334" selected="selected">Bygdin brygge</option>
         <option value="NSR%3AStopPlace%3A12329">Torfinnsbu turisthytte</option>
@@ -140,7 +140,7 @@
         </select>
     </div>
     <div class="">
-        <label for="to">Til</label>
+        <label for="to">To</label>
         <select name="to" id="to">
         <option value="NSR%3AStopPlace%3A12334">Bygdin brygge</option>
         <option value="NSR%3AStopPlace%3A12329">Torfinnsbu turisthytte</option>
@@ -151,7 +151,7 @@
 
     <div id="pax">
         <div class="cell">
-        <label for="adults">Voksne</label>
+        <label for="adults">Adults</label>
         <select name="adults" id="adults">
           <option value="0">0</option>
           <option value="1" selected="selected">1</option>
@@ -177,7 +177,7 @@
         </select>
     </div>
     <div class="">
-        <label for="children">Barn</label>
+        <label for="children">Children</label>
         <select name="children" id="children">
           <option value="0" selected="selected">0</option>
           <option value="1">1</option>
@@ -204,10 +204,10 @@
     
     <div style="float:left">
     <input type="checkbox" id="return"/>
-    <label for="return">Jeg ønsker retur</label>
+    <label for="return">Return ticket</label>
     </div>    
     <div>
-    <button id="search">Søk</button>
+    <button id="search">Search</button>
     
     <p id="url"></p>
     </div>
