@@ -96,7 +96,7 @@
                 var returnData = "";
                 switch ($('#return').is(':checked')) {
                     case true:
-                        returnData = "&returnDate="+$.datepicker.formatDate("yy-mm-dd", $('#departureDate').datepicker('getDate'))+"&returnTime=00%3A00&ret=1";
+                        returnData = "&returnDate="+$.datepicker.formatDate("yy-mm-dd", $('#departureDate').datepicker('getDate'))+"&returnTime=00%3A00&ret=true";
                         break;
                 }
                 var baseURL="https://www.nor-way.no/#/?showEarlierDepartureTrips=0&showLaterDepartureTrips=0&showEarlierReturnTrips=0&showLaterReturnTrips=0&originId="+$('#from').val()+"&originName="+$('#from').find(':selected').text()+"&step=3&destinationId="+$('#to').val()+"&destinationName="+$('#to').find(':selected').text()+"&departureTime=00%3A00&departureDate="+$.datepicker.formatDate("yy-mm-dd", $('#departureDate').datepicker('getDate'))+"&qty_100="+$('#adults').val()+"&qty_101="+$('#children').val()+returnData;
