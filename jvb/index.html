@@ -99,7 +99,7 @@
                         returnData = "&returnDate="+$.datepicker.formatDate("yy-mm-dd", $('#departureDate').datepicker('getDate'))+"&returnTime=00%3A00&ret=true";
                         break;
                 }
-                var baseURL="https://www.nor-way.no/#/?showEarlierDepartureTrips=0&showLaterDepartureTrips=0&showEarlierReturnTrips=0&showLaterReturnTrips=0&originId="+$('#from').val()+"&originName="+$('#from').find(':selected').text()+"&step=3&destinationId="+$('#to').val()+"&destinationName="+$('#to').find(':selected').text()+"&departureTime=00%3A00&departureDate="+$.datepicker.formatDate("yy-mm-dd", $('#departureDate').datepicker('getDate'))+"&qty_1001="+$('#adults').val()+"&qty_3003=1&qty_1002="+$('#children').val()+returnData;
+                var baseURL="https://www.nor-way.no/#/?showEarlierDepartureTrips=0&showLaterDepartureTrips=0&showEarlierReturnTrips=0&showLaterReturnTrips=0&originId="+$('#from').val()+"&originName="+$('#from').find(':selected').text()+"&step=3&destinationId="+$('#to').val()+"&destinationName="+$('#to').find(':selected').text()+"&departureTime=00%3A00&departureDate="+$.datepicker.formatDate("yy-mm-dd", $('#departureDate').datepicker('getDate'))+"&qty_1001="+$('#adults').val()+"&qty_1002="+$('#children').val()+returnData;
 
                 var utm="&utm_source=jvb.no&utm_medium=partner&utm_campaign=mb-bitihorn";
                 return baseURL+utm;
