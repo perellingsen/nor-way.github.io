@@ -12,7 +12,6 @@
     ></script>
     <script>
         function initMap() {
-            const directionsService = new google.maps.DirectionsService();
             const directionsRenderer = new google.maps.DirectionsRenderer();
             const map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 6,
@@ -22,10 +21,10 @@
                 }
             });
             directionsRenderer.setMap(map);
-            calculateAndDisplayRoute(directionsService, directionsRenderer);
+            calculateAndDisplayRoute(directionsRenderer);
         }
 
-        function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+        function calculateAndDisplayRoute(directionsRenderer) {
         const waypts = [];
         const checkboxArray = document.getElementById("waypoints");
 
@@ -38,7 +37,7 @@
             }
         }
 
-        directionsService.route(
+        /*directionsService.route(
             {
             origin: document.getElementById("start").value,
             destination: document.getElementById("end").value,
@@ -49,24 +48,8 @@
             (response, status) => {
             if (status === "OK") {
                 directionsRenderer.setDirections(response);
-                const route = response.routes[0];
-                const summaryPanel = document.getElementById("directions-panel");
-                summaryPanel.innerHTML = "";
-
-                // For each route, display summary information.
-                for (let i = 0; i < route.legs.length; i++) {
-                const routeSegment = i + 1;
-                summaryPanel.innerHTML +=
-                    "<b>Route Segment: " + routeSegment + "</b><br>";
-                summaryPanel.innerHTML += route.legs[i].start_address + " to ";
-                summaryPanel.innerHTML += route.legs[i].end_address + "<br>";
-                summaryPanel.innerHTML += route.legs[i].distance.text + "<br><br>";
-                }
-            } else {
-                window.alert("Directions request failed due to " + status);
             }
-            }
-        );
+        );*/
     }
     </script>
 
