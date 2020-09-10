@@ -11,69 +11,75 @@
       defer
     ></script>
     <script>
+        var map;
+        var geocoder;
+
         function initMap() {
-            const directionsRenderer = new google.maps.DirectionsRenderer();
-            const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 6,
-                center: {
-                lat: 41.85,
-                lng: -87.65
-                }
-            });
-            directionsRenderer.setMap(map);
-            calculateAndDisplayRoute(directionsRenderer);
-        }
-
-        function calculateAndDisplayRoute(directionsRenderer) {
-        const waypts = [];
-        const checkboxArray = document.getElementById("waypoints");
-
-        for (let i = 0; i < checkboxArray.length; i++) {
-            if (checkboxArray.options[i].selected) {
-            waypts.push({
-                location: checkboxArray[i].value,
-                stopover: true
-            });
-            }
-        }
-
-        /*directionsService.route(
-            {
-            origin: document.getElementById("start").value,
-            destination: document.getElementById("end").value,
-            waypoints: waypts,
-            optimizeWaypoints: true,
-            travelMode: google.maps.TravelMode.DRIVING
+        var directionsService = new google.maps.DirectionsService();
+        var directionsDisplay = new google.maps.DirectionsRenderer();
+        var infowindow = new google.maps.InfoWindow();
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 8,
+            center: {
+            lat: -33.931,
+            lng: 151.257
             },
-            (response, status) => {
-            if (status === "OK") {
-                directionsRenderer.setDirections(response);
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+        directionsDisplay.setMap(map);  // <=================== add this line
+        var marker, i;
+        var locations = [
+            ['Manly Beach', -32.80010128657071, 151.28747820854187, 2],
+            ['Bondi Beach', -33.890542, 151.274856, 4],
+            ['Coogee Beach', -33.923036, 151.259052, 5],
+            ['Maroubra Beach', -33.950198, 151.259302, 1],
+            ['Cronulla Beach', -34.028249, 151.157507, 3],
+            ['Canly Beach', -33.90010128657071, 151.28747820854187, 6],
+            ['Pukuni', -32.90010128657071, 151.28747820854187, 7],
+            ['Chulkuni Beach', -31.90010128657071, 151.28747820854187, 8],
+            ['Narumi', -30.90010128657071, 151.28747820854187, 9],
+        ];
+
+        var request = {
+            travelMode: google.maps.TravelMode.DRIVING
+        };
+
+
+        for (i = 0; i < locations.length; i++) {
+            marker = new google.maps.Marker({
+            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+            map: map
+            });
+
+            //Shows marker names and related content
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function() {
+                infowindow.setContent(locations[i][0]);
+                infowindow.open(map, marker);
             }
-        );*/
-    }
+            })(marker, i));
+
+            if (i == 0) request.origin = marker.getPosition();
+            else if (i == locations.length - 1) request.destination = marker.getPosition();
+            else {
+            if (!request.waypoints) request.waypoints = [];
+            request.waypoints.push({
+                location: marker.getPosition(),
+                stopover: true,
+            });
+            }
+        }
+
+        directionsService.route(request, function(result, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(result);
+            }
+        });
+        }
     </script>
 
     <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <style>
-        #right-panel {
-        font-family: "Roboto", "sans-serif";
-        line-height: 30px;
-        padding-left: 10px;
-        }
-
-        #right-panel select,
-        #right-panel input {
-        font-size: 15px;
-        }
-
-        #right-panel select {
-        width: 100%;
-        }
-
-        #right-panel i {
-        font-size: 12px;
-        }
-
         html,
         body {
         height: 100%;
@@ -87,61 +93,9 @@
         width: 70%;
         height: 100%;
         }
-
-        #right-panel {
-        margin: 20px;
-        border-width: 2px;
-        width: 20%;
-        height: 400px;
-        float: left;
-        text-align: left;
-        padding-top: 0;
-        }
-
-        #directions-panel {
-        margin-top: 10px;
-        background-color: #ffee77;
-        padding: 10px;
-        overflow: scroll;
-        height: 174px;
-        }
     </style>
     </head>
     <body>
         <div id="map"></div>
-        <div id="right-panel">
-            <div>
-              <b>Start:</b>
-              <select id="start">
-                <option value="Halifax, NS">Halifax, NS</option>
-                <option value="Boston, MA">Boston, MA</option>
-                <option value="New York, NY">New York, NY</option>
-                <option value="Miami, FL">Miami, FL</option>
-              </select>
-              <br />
-              <b>Waypoints:</b> <br />
-              <i>(Ctrl+Click or Cmd+Click for multiple selection)</i> <br />
-              <select multiple id="waypoints">
-                <option value="montreal, quebec">Montreal, QBC</option>
-                <option value="toronto, ont">Toronto, ONT</option>
-                <option value="chicago, il">Chicago</option>
-                <option value="winnipeg, mb">Winnipeg</option>
-                <option value="fargo, nd">Fargo</option>
-                <option value="calgary, ab">Calgary</option>
-                <option value="spokane, wa">Spokane</option>
-              </select>
-              <br />
-              <b>End:</b>
-              <select id="end">
-                <option value="Vancouver, BC">Vancouver, BC</option>
-                <option value="Seattle, WA">Seattle, WA</option>
-                <option value="San Francisco, CA">San Francisco, CA</option>
-                <option value="Los Angeles, CA">Los Angeles, CA</option>
-              </select>
-              <br />
-              <input type="submit" id="submit" />
-            </div>
-            <div id="directions-panel"></div>
-          </div>
     </body>
 </html>
