@@ -106,11 +106,11 @@
             }
 
             //$('#departureDate, #returnDate').datepicker( $.datepicker.regional["no"] );
-            $("#departureDate, #returnDate").datepicker({ minDate: -0, maxDate: new Date(2020,9-1,31) });
+            $("#departureDate, #returnDate").datepicker({ minDate: new Date(2021,7-1,25), maxDate: new Date(2021,9-1,30) });
             $('#departureDate, #returnDate').datepicker('setDate', new Date());
             
             $('#departureDate').on('change', function(){
-                $("#returnDate").datepicker({ minDate: new Date($('#departureDate').datepicker('getDate')), maxDate: new Date(2020,9-1,30) });
+                $("#returnDate").datepicker({ minDate: new Date($('#departureDate').datepicker('getDate')), maxDate: new Date(2021,9-1,30) });
                 $('#returnDate').datepicker('setDate', new Date($('#departureDate').datepicker('getDate')))
             })
 
